@@ -1,0 +1,49 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "com.lixianjie.goodssearcher"
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main.jniLibs.srcDirs = ['libs']
+    }
+
+    useLibrary 'org.apache.http.legacy'
+}
+
+dependencies {
+    // Bmob 云后端
+//    compile 'cn.bmob.android:bmob-sdk:3.5.5'
+//    compile 'cn.bmob.android:http-legacy:1.0'
+//    compile 'cn.bmob.android:bmob-sdk:3.5.0'
+//    compile 'cn.bmob.android:http-legacy:1.0'
+
+
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+//    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    // Because RxAndroid releases are few and far between, it is recommended you also
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile files('libs/zxing.jar')
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.github.open-android:Loading:1.0'
+    //    compile 'com.jakewharton:butterknife:8.5.1'
+//    compile 'com.jakewharton:butterknife-compiler:8.5.1'
+//    compile 'com.jakewharton:butterknife-annotations:8.5.1'
+}

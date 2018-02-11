@@ -1,0 +1,151 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#3499FF">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="添加商品"
+            android:textColor="#000"
+            android:textSize="23sp"/>
+
+        <Button
+            android:id="@+id/bt_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:background="@null"
+            android:text="保存商品"
+            android:textColor="@drawable/selector_text_color"
+            android:textSize="20sp"/>
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="7dp">
+
+            <LinearLayout
+                android:id="@+id/ll_input_barcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_item_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="true"
+                    android:paddingLeft="5dp"
+                    android:text="1.商品条形码"
+                    android:textColor="#000"
+                    android:textSize="25sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_input_bar_code"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:background="@drawable/selector_edit_text"
+                        android:hint="输入或右击扫描条形码"
+                        android:paddingLeft="10dp"/>
+
+                    <Button
+                        android:id="@+id/bt_scan_barcode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/btn_save"
+                        android:text="扫描"
+                        android:textSize="22sp"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_scan_bitmap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_scan_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_input_barcode"/>
+
+            <com.lixianjie.goodssearcher.ui.view.InputGoodsAttribute
+                android:id="@+id/input_goods_name"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:inputHint="输入商品名称"
+                app:inputTitle="2.商品名称">
+            </com.lixianjie.goodssearcher.ui.view.InputGoodsAttribute>
+
+            <com.lixianjie.goodssearcher.ui.view.InputGoodsAttribute
+                android:id="@+id/input_brand"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:inputHint="输入或者选择商品品牌"
+                app:inputTitle="3.商品品牌">
+            </com.lixianjie.goodssearcher.ui.view.InputGoodsAttribute>
+
+            <com.lixianjie.goodssearcher.ui.view.InputGoodsAttribute
+                android:id="@+id/input_buy_in_price"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:inputHint="输入商品进货价"
+                app:inputTitle="4.商品进货价">
+            </com.lixianjie.goodssearcher.ui.view.InputGoodsAttribute>
+
+            <com.lixianjie.goodssearcher.ui.view.InputGoodsAttribute
+                android:id="@+id/input_retail_price"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:inputHint="输入商品零售价"
+                app:inputTitle="5.商品零售价">
+            </com.lixianjie.goodssearcher.ui.view.InputGoodsAttribute>
+
+            <com.lixianjie.goodssearcher.ui.view.InputGoodsAttribute
+                android:id="@+id/input_standard"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:inputHint="输入或选择商品规格"
+                app:inputTitle="6.商品规格">
+            </com.lixianjie.goodssearcher.ui.view.InputGoodsAttribute>
+
+            <com.lixianjie.goodssearcher.ui.view.InputGoodsAttribute
+                android:id="@+id/input_buy_in_unit_price"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:inputHint="输入商品进货单价"
+                app:inputTitle="7.商品进货单价">
+            </com.lixianjie.goodssearcher.ui.view.InputGoodsAttribute>
+
+            <com.lixianjie.goodssearcher.ui.view.InputGoodsAttribute
+                android:id="@+id/input_desc"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                app:inputHint="输入商品备注或描述"
+                app:inputTitle="8.商品备注或描述">
+            </com.lixianjie.goodssearcher.ui.view.InputGoodsAttribute>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

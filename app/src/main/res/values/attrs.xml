@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="InputGoodsAttribute">
+        <attr name="inputTitle" format="string"/>
+        <attr name="inputHint" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="GoodsDetailsItem">
+        <attr name="itemTitle" format="string"/>
+        <attr name="itemDetails" format="string"/>
+        <attr name="isEdit" format="boolean"/>
+    </declare-styleable>
+</resources>

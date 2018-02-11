@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/tv_item_title"
+        android:textColor="#000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="true"
+        android:paddingLeft="5dp"
+        android:textSize="25sp"
+        tools:text="1.商品名稱"/>
+
+    <EditText
+        android:textColor="#000"
+        android:id="@+id/et_input"
+        tools:hint="輸入商品名稱"
+        android:paddingLeft="15dp"
+        android:textSize="22sp"
+        android:background="@drawable/selector_edit_text"
+        android:includeFontPadding="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</merge>
