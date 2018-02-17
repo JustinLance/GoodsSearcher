@@ -1,4 +1,4 @@
-package com.lixianjie.goodssearcher.activity;
+package com.xianjielee.goodssearcher.activity;
 
 import android.graphics.Bitmap;
 import android.os.Handler;

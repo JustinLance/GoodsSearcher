@@ -1,4 +1,4 @@
-package com.lixianjie.goodssearcher.activity;
+package com.xianjielee.goodssearcher.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-import com.lixianjie.goodssearcher.R;
+import com.xianjielee.goodssearcher.R;
 import com.mining.app.zxing.camera.CameraManager;
 import com.mining.app.zxing.decoding.CaptureActivityHandler;
 import com.mining.app.zxing.decoding.InactivityTimer;

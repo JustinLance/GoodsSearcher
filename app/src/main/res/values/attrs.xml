@@ -3,11 +3,14 @@
     <declare-styleable name="InputGoodsAttribute">
         <attr name="inputTitle" format="string"/>
         <attr name="inputHint" format="string"/>
+        <attr name="android:inputType" />
     </declare-styleable>
 
     <declare-styleable name="GoodsDetailsItem">
         <attr name="itemTitle" format="string"/>
         <attr name="itemDetails" format="string"/>
         <attr name="isEdit" format="boolean"/>
+        <attr name="android:inputType" />
+        <attr name="detailsContentEncrypt" format="boolean" />
     </declare-styleable>
 </resources>

@@ -1,6 +1,6 @@
-package com.lixianjie.goodssearcher.presenter;
+package com.xianjielee.goodssearcher.presenter;
 
-import com.lixianjie.goodssearcher.contract.AddGoodsContract;
+import com.xianjielee.goodssearcher.contract.AddGoodsContract;
 
 /**
  * @Author lixianjie

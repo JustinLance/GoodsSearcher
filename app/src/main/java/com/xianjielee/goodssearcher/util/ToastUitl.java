@@ -1,4 +1,4 @@
-package com.lixianjie.goodssearcher.util;
+package com.xianjielee.goodssearcher.util;
 
 import android.content.Context;
 import android.widget.Toast;

@@ -28,7 +28,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.google.zxing.ResultPoint;
-import com.lixianjie.goodssearcher.R;
+import com.xianjielee.goodssearcher.R;
 import com.mining.app.zxing.camera.CameraManager;
 
 import java.util.Collection;

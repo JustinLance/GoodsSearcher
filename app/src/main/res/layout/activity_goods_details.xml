@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:background="@null"
             android:text="退出"
             android:textColor="@drawable/selector_text_color"
-            android:textSize="21sp"/>
+            android:textSize="21sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
             android:text="商品詳情"
             android:textColor="#fff"
             android:textSize="23sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/bt_continue"
@@ -42,7 +42,7 @@
             android:background="@null"
             android:text="继续扫描"
             android:textColor="@drawable/selector_text_color"
-            android:textSize="21sp"/>
+            android:textSize="21sp" />
 
     </FrameLayout>
 
@@ -57,69 +57,59 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem
+            <com.xianjielee.goodssearcher.ui.view.GoodsDetailsItem
                 android:id="@+id/gdi_barcode"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 app:isEdit="false"
-                app:itemTitle="1.条形码">
-            </com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem>
+                app:itemTitle="1.条形码" />
 
-            <com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem
+            <com.xianjielee.goodssearcher.ui.view.GoodsDetailsItem
                 android:id="@+id/gdi_name"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                app:itemTitle="2.名称">
-            </com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem>
+                app:itemTitle="2.名称" />
 
-            <com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem
+            <com.xianjielee.goodssearcher.ui.view.GoodsDetailsItem
                 android:id="@+id/gdi_brand"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                app:itemTitle="3.品牌">
+                app:itemTitle="3.品牌" />
 
-            </com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem>
-
-            <com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem
+            <com.xianjielee.goodssearcher.ui.view.GoodsDetailsItem
                 android:id="@+id/gdi_buy_in_price"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                app:itemTitle="4.进货价">
+                app:detailsContentEncrypt="true"
+                android:inputType="number"
+                app:itemTitle="4.进货价" />
 
-            </com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem>
-
-            <com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem
+            <com.xianjielee.goodssearcher.ui.view.GoodsDetailsItem
                 android:id="@+id/gdi_retail_price"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                app:itemTitle="5.零售价">
+                android:inputType="number"
+                app:itemTitle="5.零售价" />
 
-            </com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem>
-
-            <com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem
+            <com.xianjielee.goodssearcher.ui.view.GoodsDetailsItem
                 android:id="@+id/gdi_standard"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                app:itemTitle="6.規格">
+                app:itemTitle="6.規格" />
 
-            </com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem>
-
-            <com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem
+            <com.xianjielee.goodssearcher.ui.view.GoodsDetailsItem
                 android:id="@+id/gdi_buy_in_unit_price"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                app:itemTitle="7.进货单价">
+                android:inputType="number"
+                app:detailsContentEncrypt="true"
+                app:itemTitle="7.进货单价" />
 
-            </com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem>
-
-            <com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem
+            <com.xianjielee.goodssearcher.ui.view.GoodsDetailsItem
                 android:id="@+id/gdi_desc"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                app:itemTitle="8.备注或描述">
-
-            </com.lixianjie.goodssearcher.ui.view.GoodsDetailsItem>
-
+                app:itemTitle="8.备注或描述" />
 
         </LinearLayout>
 
@@ -129,12 +119,12 @@
         android:id="@+id/bt_edit"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:layout_weight="1"
         android:background="@drawable/btn_save"
         android:gravity="center"
         android:text="编辑并保存商品"
         android:textColor="#000"
         android:textSize="25sp"
-        android:layout_margin="8dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 </LinearLayout>

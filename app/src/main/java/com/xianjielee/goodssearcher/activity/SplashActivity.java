@@ -1,11 +1,11 @@
-package com.lixianjie.goodssearcher.activity;
+package com.xianjielee.goodssearcher.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 
-import com.lixianjie.goodssearcher.R;
+import com.xianjielee.goodssearcher.R;
 
 import java.util.concurrent.TimeUnit;
 

@@ -27,8 +27,8 @@ import android.util.Log;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-import com.lixianjie.goodssearcher.R;
-import com.lixianjie.goodssearcher.activity.Handle;
+import com.xianjielee.goodssearcher.R;
+import com.xianjielee.goodssearcher.activity.Handle;
 import com.mining.app.zxing.camera.CameraManager;
 import com.mining.app.zxing.view.ViewfinderResultPointCallback;
 

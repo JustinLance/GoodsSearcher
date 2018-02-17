@@ -1,4 +1,4 @@
-package com.lixianjie.goodssearcher.ui.view;
+package com.xianjielee.goodssearcher.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

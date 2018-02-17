@@ -22,7 +22,7 @@ import android.os.Looper;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.ResultPointCallback;
-import com.lixianjie.goodssearcher.activity.Handle;
+import com.xianjielee.goodssearcher.activity.Handle;
 
 import java.util.Hashtable;
 import java.util.Vector;

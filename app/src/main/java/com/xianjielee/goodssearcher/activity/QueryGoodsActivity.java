@@ -1,4 +1,4 @@
-package com.lixianjie.goodssearcher.activity;
+package com.xianjielee.goodssearcher.activity;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -9,6 +9,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.os.Vibrator;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -20,10 +21,10 @@ import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-import com.lixianjie.goodssearcher.R;
-import com.lixianjie.goodssearcher.db.GoodsDao;
-import com.lixianjie.goodssearcher.db.GoodsBean;
-import com.lixianjie.goodssearcher.util.ToastUitl;
+import com.xianjielee.goodssearcher.R;
+import com.xianjielee.goodssearcher.db.GoodsDao;
+import com.xianjielee.goodssearcher.db.GoodsBean;
+import com.xianjielee.goodssearcher.util.ToastUitl;
 import com.mining.app.zxing.camera.CameraManager;
 import com.mining.app.zxing.decoding.CaptureActivityHandler;
 import com.mining.app.zxing.decoding.InactivityTimer;
@@ -164,64 +165,64 @@ public class QueryGoodsActivity extends Activity implements SurfaceHolder.Callba
             }
             spotsDialog = new SpotsDialog(QueryGoodsActivity.this);
             spotsDialog.show();
+            // 数据库查询
 //            HashMap<String, String> map = new HashMap<>();
 //            map.put(GoodsBean.KEY_BAR_CODE, resultString);
 //            List<GoodsBean> query = mGoodsDao.query(map);
+
+            // 查询 Bmob 云后台数据库
             new BmobQuery<GoodsBean>().addWhereEqualTo("barCode", resultString).findObjects(new FindListener<GoodsBean>() {
                 @Override
                 public void done(List<GoodsBean> query, BmobException e) {
-                    if (query.size() > 0) {
-                        //有数据
-                        ToastUitl.showShort("有数据");
-                        Intent intent = new Intent(QueryGoodsActivity.this, GoodsDetailsActivity.class);
-                        intent.putExtra("GoodsBean", query.get(0));
-                        startActivity(intent);
-                        QueryGoodsActivity.this.finish();
-                    } else {
-                        //没有数据
-//                ToastUitl.showShort("没有数据");
-                        hideLoading();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(QueryGoodsActivity.this);
-                        builder.setMessage("该商品还没添加到数据库中，是否添加到数据库？");
-                        builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(QueryGoodsActivity.this, AddGoodsActivity.class);
-                                Bundle bundle = new Bundle();
-                                bundle.putString("barcode", resultString);
-                                bundle.putParcelable("bitmap", barcode);
-                                intent.putExtras(bundle);
-                                startActivity(intent);
-                                QueryGoodsActivity.this.finish();
-                                dialog.dismiss();
+                    if (query != null) {
+                        if (query.size() > 0) {
+                            // 有数据
+                            ToastUitl.showShort(resultString + " 查询到" + query.size() + "条数据");
+                            if (query.size() > 1) {
+                                ListResultActivity.go(QueryGoodsActivity.this, query);
+                            } else {
+                                GoodsDetailsActivity.go(QueryGoodsActivity.this, query.get(0));
                             }
-                        });
+                            QueryGoodsActivity.this.finish();
+                        } else {
+                            // 没有数据
+                            ToastUitl.showShort("没有查询到该数据...");
+                            hideLoading();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(QueryGoodsActivity.this);
+                            builder.setMessage("该商品还没添加到数据库中，是否添加到数据库？");
+                            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(QueryGoodsActivity.this, AddGoodsActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("barcode", resultString);
+                                    bundle.putParcelable("bitmap", barcode);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                    QueryGoodsActivity.this.finish();
+                                    dialog.dismiss();
+                                }
+                            });
 
-                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                QueryGoodsActivity.this.recreate();
-                            }
-                        });
-                        builder.show();
-
+                            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    QueryGoodsActivity.this.recreate();
+                                }
+                            });
+                            builder.show();
+                        }
                         if (e == null) {
                             Log.e(TAG, "查询成功 : " + query);
                         } else {
+                            ToastUitl.showShort("查询失败..." + e);
                             Log.e(TAG, "查询失败...", e);
                         }
                     }
                 }
             });
-            //Intent resultIntent = new Intent();
-//            Bundle bundle = new Bundle();
-//            bundle.putString("result", resultString);
-//            bundle.putParcelable("bitmap", barcode);
-//            resultIntent.putExtras(bundle);
-//            this.setResult(RESULT_OK, resultIntent);
         }
-//        QueryGoodsActivity.this.finish();
     }
 
     private void initCamera(SurfaceHolder surfaceHolder) {

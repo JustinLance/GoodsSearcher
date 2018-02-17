@@ -1,4 +1,4 @@
-package com.lixianjie.goodssearcher.db;
+package com.xianjielee.goodssearcher.db;
 
 import android.content.Context;
 import android.database.DatabaseErrorHandler;

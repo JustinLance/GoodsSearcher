@@ -1,8 +1,9 @@
-package com.lixianjie.goodssearcher.activity;
+package com.xianjielee.goodssearcher.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -15,9 +16,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.lixianjie.goodssearcher.R;
-import com.lixianjie.goodssearcher.db.GoodsBean;
-import com.lixianjie.goodssearcher.db.GoodsDao;
+import com.xianjielee.goodssearcher.R;
+import com.xianjielee.goodssearcher.db.GoodsBean;
+import com.xianjielee.goodssearcher.db.GoodsDao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,8 +41,7 @@ public class ManualQueryActivity extends Activity {
     private MyAdapter mAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual_query);
         init();
@@ -49,14 +49,12 @@ public class ManualQueryActivity extends Activity {
         initEvent();
     }
 
-    private void init()
-    {
+    private void init() {
         mGoodsDao = new GoodsDao();
         mQueryMap = new HashMap<>();
     }
 
-    private void initView()
-    {
+    private void initView() {
         mManualQuery = (EditText) findViewById(R.id.et_manual_query);
         mBarCodeQuery = (Button) findViewById(R.id.bt_scan_barcode);
         mExit = (Button) findViewById(R.id.bt_exit);
@@ -65,44 +63,36 @@ public class ManualQueryActivity extends Activity {
         mQueryResult.setAdapter(mAdapter);
     }
 
-    private void initEvent()
-    {
+    private void initEvent() {
         mQueryResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                Intent intent = new Intent(ManualQueryActivity.this, GoodsDetailsActivity.class);
-                intent.putExtra("GoodsBean", mDatas.get(position));
-                startActivity(intent);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                GoodsDetailsActivity.go(ManualQueryActivity.this, mDatas.get(position));
             }
         });
 
         mBarCodeQuery.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 startActivity(new Intent(ManualQueryActivity.this, QueryGoodsActivity.class));
             }
         });
 
         mExit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 finish();
             }
         });
 
         mManualQuery.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after)
-            {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mQueryMap.clear();
                 mQueryMap.put(GoodsBean.KEY_NAME, s.toString());
                 mDatas = mGoodsDao.query(mQueryMap);
@@ -110,36 +100,31 @@ public class ManualQueryActivity extends Activity {
             }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
 
             }
         });
     }
 
-    class MyAdapter extends BaseAdapter{
+    class MyAdapter extends BaseAdapter {
 
         @Override
-        public int getCount()
-        {
+        public int getCount() {
             return mDatas.size();
         }
 
         @Override
-        public Object getItem(int position)
-        {
+        public Object getItem(int position) {
             return position;
         }
 
         @Override
-        public long getItemId(int position)
-        {
+        public long getItemId(int position) {
             return position;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
+        public View getView(int position, View convertView, ViewGroup parent) {
             View view = LayoutInflater.from(ManualQueryActivity.this)
                     .inflate(R.layout.item_query_result, parent, false);
             GoodsBean bean = mDatas.get(position);

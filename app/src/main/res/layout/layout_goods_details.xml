@@ -1,26 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-       xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/tv_item_title"
-        android:textColor="#000"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:includeFontPadding="true"
-        android:textSize="25sp"
         android:layout_marginTop="10dp"
-        android:paddingLeft="20dp"
-        tools:text="1.商品名稱"/>
-
-    <EditText
-        android:textColor="#000"
-        android:id="@+id/et_details"
-        android:paddingLeft="15dp"
-        android:textSize="22sp"
-        android:gravity="center"
-        android:background="@drawable/selector_goods_details_item"
         android:includeFontPadding="true"
+        android:paddingLeft="20dp"
+        android:textColor="#000"
+        android:textSize="25sp"
+        tools:text="1.商品名稱" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_goods_details_item"
+            android:gravity="center"
+            android:includeFontPadding="true"
+            android:paddingLeft="15dp"
+            android:cursorVisible="true"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:textColor="#000"
+            android:textSize="22sp" />
+
+        <ImageButton
+            android:id="@+id/ib_control_details_encrypt"
+            android:layout_width="wrap_content"
+            android:src="@drawable/eye"
+            android:background="@null"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 </merge>

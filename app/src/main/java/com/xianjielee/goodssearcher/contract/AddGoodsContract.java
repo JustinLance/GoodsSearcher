@@ -1,4 +1,4 @@
-package com.lixianjie.goodssearcher.contract;
+package com.xianjielee.goodssearcher.contract;
 
 /**
  * @Author lixianjie
