@@ -5,7 +5,7 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.MyApplication;
+import com.App;
 
 /**
  * @Author lixianjie
@@ -20,7 +20,7 @@ public class GoodsDatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "goods";
 
     public GoodsDatabaseHelper(){
-        super(MyApplication.mContext, DB_NAME, null, DB_VERSION);
+        super(App.mContext, DB_NAME, null, DB_VERSION);
     }
 
     public GoodsDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)

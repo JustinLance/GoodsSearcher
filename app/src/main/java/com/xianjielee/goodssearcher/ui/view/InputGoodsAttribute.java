@@ -1,4 +1,4 @@
-package com.lixianjie.goodssearcher.ui.view;
+package com.xianjielee.goodssearcher.ui.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,7 +8,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.lixianjie.goodssearcher.R;
+import com.xianjielee.goodssearcher.R;
+
 
 /**
  * @Author lixianjie

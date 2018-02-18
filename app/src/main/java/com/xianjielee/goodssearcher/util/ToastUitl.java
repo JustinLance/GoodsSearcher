@@ -3,7 +3,7 @@ package com.xianjielee.goodssearcher.util;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.MyApplication;
+import com.App;
 
 
 /**
@@ -20,7 +20,7 @@ public class ToastUitl {
 
     private static Toast initToast(CharSequence message, int duration) {
         if (toast == null) {
-            toast = Toast.makeText(MyApplication.mContext, message, duration);
+            toast = Toast.makeText(App.mContext, message, duration);
         } else {
             toast.setText(message);
             toast.setDuration(duration);
@@ -45,7 +45,7 @@ public class ToastUitl {
      */
     public static void showShort(int strResId) {
 //		Toast.makeText(context, strResId, Toast.LENGTH_SHORT).show();
-        initToast(MyApplication.mContext.getResources().getText(strResId), Toast.LENGTH_SHORT).show();
+        initToast(App.mContext.getResources().getText(strResId), Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -63,7 +63,7 @@ public class ToastUitl {
      * @param strResId
      */
     public static void showLong(int strResId) {
-        initToast(MyApplication.mContext.getResources().getText(strResId), Toast.LENGTH_LONG).show();
+        initToast(App.mContext.getResources().getText(strResId), Toast.LENGTH_LONG).show();
     }
 
     /**

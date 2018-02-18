@@ -1,11 +1,11 @@
 package com.xianjielee.goodssearcher.ui.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,7 +17,8 @@ import android.widget.TextView;
 
 import com.xianjielee.goodssearcher.R;
 
-import static com.MyApplication.mContext;
+import static com.App.mContext;
+
 
 /**
  * @Author lixianjie
@@ -29,7 +30,10 @@ public class GoodsDetailsItem extends LinearLayout {
     private static final String TAG = GoodsDetailsItem.class.getSimpleName();
     private TextView mTvTitle;
     private EditText mEtDetails;
-    private ImageButton controlEncrypt;
+    private ImageButton mIbControlEncrypt;
+    private boolean mContentEncrypt = false;
+    private boolean mIsContentEncrypt = false;
+    private boolean isEdit;
 
     public GoodsDetailsItem(Context context) {
         this(context, null);
@@ -50,19 +54,19 @@ public class GoodsDetailsItem extends LinearLayout {
         TypedArray typedArray = mContext.obtainStyledAttributes(attrs, R.styleable.GoodsDetailsItem);
         String itemTitle = typedArray.getString(R.styleable.GoodsDetailsItem_itemTitle);
         String itemDetails = typedArray.getString(R.styleable.GoodsDetailsItem_itemDetails);
-        boolean isEdit = typedArray.getBoolean(R.styleable.GoodsDetailsItem_isEdit, true);
+        isEdit = typedArray.getBoolean(R.styleable.GoodsDetailsItem_isEdit, false);
         int inputType = typedArray.getInt(R.styleable.GoodsDetailsItem_android_inputType, EditorInfo.TYPE_NULL);
-        boolean contentEncrypt = typedArray.getBoolean(R.styleable.GoodsDetailsItem_detailsContentEncrypt, false);
+        mContentEncrypt = typedArray.getBoolean(R.styleable.GoodsDetailsItem_detailsContentEncrypt, false);
         typedArray.recycle();
         mTvTitle = (TextView) findViewById(R.id.tv_item_title);
         mEtDetails = (EditText) findViewById(R.id.et_details);
         if (inputType != EditorInfo.TYPE_NULL) {
-            controlEncrypt = (ImageButton) findViewById(R.id.ib_control_details_encrypt);
+            mIbControlEncrypt = (ImageButton) findViewById(R.id.ib_control_details_encrypt);
         }
-        if (contentEncrypt) {
+        if (mContentEncrypt) {
             controlDetailsContentEncrypt(true);
-            controlEncrypt.setVisibility(VISIBLE);
-            controlEncrypt.setOnTouchListener(new OnTouchListener() {
+            mIbControlEncrypt.setVisibility(VISIBLE);
+            mIbControlEncrypt.setOnTouchListener(new OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     switch (event.getActionMasked()) {
@@ -72,21 +76,29 @@ public class GoodsDetailsItem extends LinearLayout {
                         case MotionEvent.ACTION_UP:
                             controlDetailsContentEncrypt(true);
                             break;
+                        case MotionEvent.ACTION_MOVE:
+                            if (!mIsContentEncrypt) {
+                                controlDetailsContentEncrypt(true);
+                            }
+                            break;
                     }
                     return false;
                 }
             });
         }
         mTvTitle.setText(itemTitle);
-        if (!isEdit) {
-            enterEditMode(isEdit);
-        }
+        enterEditMode(false);
     }
 
     public void enterEditMode(boolean isEdit) {
-        mEtDetails.setClickable(isEdit);
+//        mEtDetails.setClickable(isEdit);
         mEtDetails.setFocusable(isEdit);
-        mEtDetails.setEnabled(isEdit);
+//        mEtDetails.setEnabled(isEdit);
+        mEtDetails.setFocusableInTouchMode(isEdit);
+        if (mContentEncrypt) {
+            controlDetailsContentEncrypt(!isEdit);
+            mIbControlEncrypt.setVisibility(isEdit ? INVISIBLE : VISIBLE);
+        }
     }
 
     public void setItemDetails(String details) {
@@ -103,5 +115,6 @@ public class GoodsDetailsItem extends LinearLayout {
 
     public void controlDetailsContentEncrypt(boolean encrypt) {
         mEtDetails.setTransformationMethod(encrypt ? PasswordTransformationMethod.getInstance() : HideReturnsTransformationMethod.getInstance());
+        mIsContentEncrypt = encrypt;
     }
 }

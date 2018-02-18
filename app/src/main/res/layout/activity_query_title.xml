@@ -5,21 +5,21 @@
                 android:background="@drawable/mmtitle_bg_alpha">
 
     <Button
-        android:id="@+id/button_back"
+        android:id="@+id/button_setting"
         android:layout_width="75.0dip"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="2dip"
         android:background="@drawable/mm_title_back_btn"
-        android:text="返回"
+        android:text="设置"
         android:textColor="@android:color/white"/>
 
     <TextView
         android:id="@+id/textview_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button_back"
-        android:layout_alignBottom="@+id/button_back"
+        android:layout_alignBaseline="@id/button_setting"
+        android:layout_alignBottom="@+id/button_setting"
         android:layout_centerHorizontal="true"
         android:gravity="center_vertical"
         android:text="商品條形碼查詢"

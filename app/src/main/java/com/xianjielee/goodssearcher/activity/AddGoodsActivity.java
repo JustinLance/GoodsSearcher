@@ -1,4 +1,4 @@
-package com.lixianjie.goodssearcher.activity;
+package com.xianjielee.goodssearcher.activity;
 
 
 import android.app.Activity;
@@ -12,11 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.lixianjie.goodssearcher.R;
-import com.lixianjie.goodssearcher.db.GoodsBean;
-import com.lixianjie.goodssearcher.db.GoodsDao;
-import com.lixianjie.goodssearcher.ui.view.InputGoodsAttribute;
-import com.lixianjie.goodssearcher.util.ToastUitl;
+import com.xianjielee.goodssearcher.R;
+import com.xianjielee.goodssearcher.db.GoodsBean;
+import com.xianjielee.goodssearcher.ui.view.InputGoodsAttribute;
+import com.xianjielee.goodssearcher.util.ToastUitl;
 
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
@@ -38,14 +37,12 @@ public class AddGoodsActivity extends Activity {
     private InputGoodsAttribute mInputDesc;
     private InputGoodsAttribute mInputRetailPrice;
     private Button mBtSave;
-    private GoodsDao mGoodsDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_goods);
-        init();
         initView();
 
         initEvent();
@@ -55,10 +52,6 @@ public class AddGoodsActivity extends Activity {
         //				intent.setClass(AddGoodsActivity.this, MipcaActivityCapture.class);
         //				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         //				startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
-    }
-
-    private void init() {
-        mGoodsDao = new GoodsDao();
     }
 
     private void initView() {
@@ -88,8 +81,9 @@ public class AddGoodsActivity extends Activity {
         mScanBarcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // TODO: 2018/2/18 重新查询条形码 并返回结果
                 Intent intent = new Intent();
-                intent.setClass(AddGoodsActivity.this, MipcaActivityCapture.class);
+                intent.setClass(AddGoodsActivity.this, QueryGoodsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
             }
@@ -123,14 +117,6 @@ public class AddGoodsActivity extends Activity {
                 bean.setBrand(brand);
                 bean.setDesc(desc);
                 bean.setRetailPrice(retailPrice);
-                boolean isAdd = mGoodsDao.add(bean);
-                if (isAdd) {
-                    ToastUitl.showShort("添加商品成功");
-                } else
-                    ToastUitl.showShort("添加商品失敗");
-                {
-
-                }
                 //                HashMap<String, String> map = new HashMap<>();
                 //                map.put(GoodsBean.KEY_BAR_CODE, barCode);
                 //                List<GoodsBean> query = goodsDao.query(map);

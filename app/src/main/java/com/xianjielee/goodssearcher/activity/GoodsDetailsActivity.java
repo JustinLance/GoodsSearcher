@@ -30,7 +30,11 @@ import dmax.dialog.SpotsDialog;
 
 public class GoodsDetailsActivity extends Activity {
 
+    public static final int MODE_LOOK_OVER = 0;
+    public static final int MODE_EDIT = 1;
+
     private GoodsBean mGoodsBean;
+
     private GoodsDetailsItem mName;
     private GoodsDetailsItem mBarCode;
     private GoodsDetailsItem mBrand;
@@ -39,10 +43,12 @@ public class GoodsDetailsActivity extends Activity {
     private GoodsDetailsItem mDesc;
     private GoodsDetailsItem mStandard;
     private GoodsDetailsItem mRetailPrice;
-    private Button mEditMode;
+
+    private Button mBtnEditMode;
     private Button mContinueScan;
     private Button mExit;
     private SpotsDialog spotsDialog;
+    private int mEditMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +83,7 @@ public class GoodsDetailsActivity extends Activity {
         mDesc = (GoodsDetailsItem) findViewById(R.id.gdi_desc);
         mStandard = (GoodsDetailsItem) findViewById(R.id.gdi_standard);
         mRetailPrice = (GoodsDetailsItem) findViewById(R.id.gdi_retail_price);
-        mEditMode = (Button) findViewById(R.id.bt_edit);
+        mBtnEditMode = (Button) findViewById(R.id.bt_edit);
         mContinueScan = (Button) findViewById(R.id.bt_continue);
         mExit = (Button) findViewById(R.id.bt_return);
 
@@ -97,7 +103,13 @@ public class GoodsDetailsActivity extends Activity {
         mExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if (mEditMode == MODE_EDIT) {
+                    // 退出编辑模式
+                    changeEditMode(false);
+                    mExit.setText("退出");
+                } else {
+                    finish();
+                }
             }
         });
 
@@ -109,19 +121,50 @@ public class GoodsDetailsActivity extends Activity {
             }
         });
 
-        mEditMode.setOnClickListener(new View.OnClickListener() {
+        mBtnEditMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideLoading();
-                spotsDialog = new SpotsDialog(GoodsDetailsActivity.this);
-                spotsDialog.show();
-                final GoodsBean bean = GoodsBean.copy(mGoodsBean);
-                bean.setBrand(mBrand.getDetails());
-                bean.setName(mName.getDetails());
-                bean.setBuyInPrice(mBuyInPrice.getDetails());
-                bean.setDesc(mDesc.getDetails());
-                bean.setBuyInUnitPrice(mBuyInUnitPrice.getDetails());
-                bean.setStandard(mStandard.getDetails());
+                if (mEditMode == MODE_LOOK_OVER) {
+                    mExit.setText("退出编辑");
+                    changeEditMode(true);
+                } else {
+                    if (mEditMode == MODE_EDIT) {
+                        showLoading();
+                        save();
+                    }
+                }
+            }
+        });
+    }
+
+    private void changeEditMode(boolean isEdit) {
+        mEditMode = isEdit ? MODE_EDIT : MODE_LOOK_OVER;
+
+        mName.enterEditMode(isEdit);
+        mBarCode.enterEditMode(isEdit);
+        mBrand.enterEditMode(isEdit);
+        mBuyInPrice.enterEditMode(isEdit);
+        mBuyInUnitPrice.enterEditMode(isEdit);
+        mDesc.enterEditMode(isEdit);
+        mStandard.enterEditMode(isEdit);
+        mRetailPrice.enterEditMode(isEdit);
+
+        mBtnEditMode.setText(isEdit ? "保存修改" : "进入商品编辑模式");
+    }
+
+    private void save() {
+        hideLoading();
+        spotsDialog = new SpotsDialog(GoodsDetailsActivity.this);
+        spotsDialog.show();
+        final GoodsBean bean = GoodsBean.copy(mGoodsBean);
+        bean.setBrand(mBrand.getDetails());
+        bean.setName(mName.getDetails());
+        bean.setBuyInPrice(mBuyInPrice.getDetails());
+        bean.setDesc(mDesc.getDetails());
+        bean.setBuyInUnitPrice(mBuyInUnitPrice.getDetails());
+        bean.setStandard(mStandard.getDetails());
+        bean.setRetailPrice(mRetailPrice.getDetails());
+
 //                boolean update = new GoodsDao().update(mGoodsBean);
 //                if (update) {
 //                    ToastUitl.showShort("保存成功");
@@ -129,42 +172,48 @@ public class GoodsDetailsActivity extends Activity {
 //                    ToastUitl.showShort("保存失敗");
 //                }
 
-                new BmobQuery<GoodsBean>()
-                        .addWhereEqualTo("barCode", mGoodsBean.getBarCode())
-                        .addWhereEqualTo("name", mGoodsBean.getName())
-                        .addWhereEqualTo("standard", mGoodsBean.getStandard())
-                        .findObjects(new FindListener<GoodsBean>() {
-                            @Override
-                            public void done(List<GoodsBean> query, BmobException e) {
-                                if (query.size() > 0) {
-                                    GoodsBean goodsDbBean = query.get(0);
-                                    bean.update(goodsDbBean.getObjectId(), new UpdateListener() {
-                                        @Override
-                                        public void done(BmobException e) {
-                                            spotsDialog.dismiss();
-                                            if (e == null) {
-                                                ToastUitl.showShort("保存成功");
-                                                Log.e("bmob", "更新成功");
-                                            } else {
-                                                ToastUitl.showShort("保存失败");
-                                                Log.e("bmob", "更新失败：" + e.getMessage() + "," + e.getErrorCode());
-                                            }
-                                        }
-                                    });
-                                    return;
+        new BmobQuery<GoodsBean>()
+                .addWhereEqualTo("barCode", mGoodsBean.getBarCode())
+                .addWhereEqualTo("name", mGoodsBean.getName())
+                .addWhereEqualTo("standard", mGoodsBean.getStandard())
+                .findObjects(new FindListener<GoodsBean>() {
+                    @Override
+                    public void done(List<GoodsBean> query, BmobException e) {
+                        if (query.size() > 0) {
+                            GoodsBean goodsDbBean = query.get(0);
+                            bean.update(goodsDbBean.getObjectId(), new UpdateListener() {
+                                @Override
+                                public void done(BmobException e) {
+                                    spotsDialog.dismiss();
+                                    if (e == null) {
+                                        ToastUitl.showShort("保存成功");
+                                        Log.e("bmob", "更新成功");
+                                    } else {
+                                        ToastUitl.showShort("保存失败");
+                                        Log.e("bmob", "更新失败：" + e.getMessage() + "," + e.getErrorCode());
+                                    }
                                 }
-                                spotsDialog.dismiss();
-                                ToastUitl.showShort("保存失败");
-                            }
-                        });
-            }
-        });
+                            });
+                            return;
+                        }
+                        spotsDialog.dismiss();
+                        ToastUitl.showShort("保存失败");
+                    }
+                });
     }
 
     private void hideLoading() {
         if (spotsDialog != null) {
             spotsDialog.dismiss();
         }
+    }
+
+    private void showLoading() {
+        if (spotsDialog != null) {
+            spotsDialog.dismiss();
+        }
+        spotsDialog = new SpotsDialog(this);
+        spotsDialog.show();
     }
 
     public static void go(Context context, GoodsBean goods) {
